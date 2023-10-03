@@ -8,6 +8,8 @@
 - Creating csv bundle from json models
 - Patching json models from csv bundle
 - Packing json models into binary
+- Decompressing/compressing koei gz
+- Unpacking game tutorials (graphic)
 
 ### Requirements
 
