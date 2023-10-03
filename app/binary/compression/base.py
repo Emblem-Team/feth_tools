@@ -16,6 +16,10 @@ class AbstractCompressionModel(ABC):
     def apply_patch(self, patch: tuple[str, str]) -> None:
         pass
 
+    @abstractmethod
+    def apply_fix(self, fix: list) -> None:
+        pass
+
 
 class AbstractCompressionType(ABC):
     indexes: list[int]

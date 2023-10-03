@@ -8,18 +8,19 @@ from app.binary.compression.subtitle import SubtitleType
 from iostuff.readers.binary import BinaryReader
 from iostuff.writers.json import JsonWriter
 
-import os
+from os import makedirs
+from os.path import exists
 
 
 def unpack_type(type: AbstractCompressionType) -> None:
-    if not os.path.exists(JSON_RAW_PATH):
-        os.makedirs(JSON_RAW_PATH)
+    if not exists(JSON_RAW_PATH):
+        makedirs(JSON_RAW_PATH)
 
     for index in type.indexes:
         binary_path = get_binary_path(index)
         json_raw_path = get_json_raw_path(index)
 
-        if not os.path.exists(binary_path):
+        if not exists(binary_path):
             print("[Not found]:", binary_path)
             continue
 

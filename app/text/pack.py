@@ -8,22 +8,27 @@ from app.binary.compression.subtitle import SubtitleType
 from iostuff.readers.json import JsonReader
 from iostuff.writers.binary import BinaryWriter
 
-import os
+from os import makedirs
+from os.path import exists
+from colorama import Fore
+from colorama import Style
 
 
 def pack_type(type: AbstractCompressionType) -> None:
-    if not os.path.exists(MODS_PATH):
-        os.makedirs(MODS_PATH)
+    if not exists(MODS_PATH):
+        makedirs(MODS_PATH)
 
     for index in type.indexes:
         json_patched_path = get_json_patched_path(index)
         mods_path = get_mods_path(index)
 
-        if not os.path.exists(json_patched_path):
-            print("[Not found]:", json_patched_path)
+        if not exists(json_patched_path):
+            print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}",
+                  json_patched_path)
             continue
 
-        print("[Pack text]:", json_patched_path, "->", mods_path)
+        print(f"{Fore.GREEN}[Pack text]:{Style.RESET_ALL}",
+              json_patched_path, "->", mods_path)
         with JsonReader[AbstractCompressionModel](json_patched_path) as model:
             with BinaryWriter(mods_path) as writer:
                 type.pack(model, writer)

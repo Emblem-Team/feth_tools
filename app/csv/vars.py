@@ -1,5 +1,7 @@
-from iostuff.readers.csv import CSVReader
 from app.utils.path import VARS_PATH
+
+from iostuff.readers.csv import CSVReader
+
 from re import findall
 
 VARIABLE_REG = r"({{(.*?)}})"
@@ -8,7 +10,6 @@ VARIABLE_REG = r"({{(.*?)}})"
 class Variables:
     def __init__(self) -> None:
         self.variables = {}
-        self.load()
 
     def load(self) -> None:
         with CSVReader(VARS_PATH) as reader:

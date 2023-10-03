@@ -1,5 +1,3 @@
-from iostuff.readers.binary import BinaryReader
-from iostuff.writers.binary import BinaryWriter
 from app.utils.path import (
     get_binary_path,
     get_binary_gz_path,
@@ -7,22 +5,27 @@ from app.utils.path import (
     DATA0_PATH,
     DATA1_PATH
 )
-import os
+
+from iostuff.readers.binary import BinaryReader
+from iostuff.writers.binary import BinaryWriter
+
+from os import makedirs
+from os.path import exists, getsize
 
 
 def unpack_binary() -> None:
-    if not os.path.exists(DATA0_PATH):
+    if not exists(DATA0_PATH):
         print("[Not found]:", DATA0_PATH)
         exit(1)
 
-    if not os.path.exists(DATA1_PATH):
+    if not exists(DATA1_PATH):
         print("[Not found]:", DATA1_PATH)
         exit(1)
 
-    if not os.path.exists(BIN_PATH):
-        os.makedirs(BIN_PATH)
+    if not exists(BIN_PATH):
+        makedirs(BIN_PATH)
 
-    data0_entry_count = os.path.getsize(DATA0_PATH) // 0x20
+    data0_entry_count = getsize(DATA0_PATH) // 0x20
     with BinaryReader(DATA0_PATH) as data0_reader:
         with BinaryReader(DATA1_PATH) as data1_reader:
             for index in range(data0_entry_count):

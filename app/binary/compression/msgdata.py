@@ -49,6 +49,10 @@ class MsgdataModel(AbstractCompressionModel):
                     if line == patch[0]:
                         self.languages[LanguageEnum.ENG_E].tables[table_index].text[text_index][line_index] = patch[1]
 
+    def apply_fix(self, fix: list) -> None:
+        self.languages[LanguageEnum.ENG_E].tables[int(
+            fix[1])].text[int(fix[2])][int(fix[3])] = fix[4]
+
 
 class MsgdataType(AbstractCompressionType):
     def __init__(self) -> None:
@@ -99,11 +103,11 @@ class MsgdataType(AbstractCompressionType):
 
                 table.text = []
                 for _ in range(table.number_of_pointers):
-                    entry_count = actived_flags_count(table.flags)
-                    if entry_count == 0:
+                    actived_flags = actived_flags_count(table.flags)
+                    if actived_flags == 0:
                         break
                     entry = []
-                    for _ in range(entry_count):
+                    for _ in range(actived_flags):
                         entry.append(reader.read_utf8_nt_string())
                     table.text.append(entry)
 

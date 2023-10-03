@@ -25,6 +25,9 @@ class SupportModel(AbstractCompressionModel):
             if line == patch[0]:
                 self.text[line_index] = patch[1]
 
+    def apply_fix(self, fix: list) -> None:
+        self.text[int(fix[1])] = fix[4]
+
 
 class SupportType(AbstractCompressionType):
     def __init__(self) -> None:

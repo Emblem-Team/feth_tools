@@ -23,6 +23,9 @@ class SubtitleModel(AbstractCompressionModel):
             if line[1] == patch[0]:
                 self.lines[line_index][1] = patch[1]
 
+    def apply_fix(self, fix: list) -> None:
+        self.lines[int(fix[1])][1] = fix[4]
+
 
 class SubtitleType(AbstractCompressionType):
     def __init__(self) -> None:

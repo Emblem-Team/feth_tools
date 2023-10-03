@@ -4,7 +4,9 @@ from app.utils.path import (
     get_binary_path,
     get_binary_gz_path
 )
+
 from iostuff.readers.binary import BinaryReader
+
 from os.path import getsize, exists
 from shutil import copyfile
 
