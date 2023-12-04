@@ -118,10 +118,16 @@ def cli_unpack_binary_archive(archive_path: str, output_path: str, entry_ext: st
 @cli.command("hard-build")
 @click.pass_context
 def cli_hard_build(ctx: click.Context):
+    print(f"{Fore.YELLOW}Hard building...{Style.RESET_ALL}")
+    start_time = perf_counter()
+    ctx.invoke(cli_clear_all)
     ctx.invoke(cli_unpack_binary)
     ctx.invoke(cli_update_binary)
     ctx.invoke(cli_unpack_text)
-    ctx.invoke(cli_build)
+    ctx.invoke(cli_patch_bundle)
+    ctx.invoke(cli_pack_text)
+    end_time = perf_counter()
+    print(f"{Fore.CYAN}Hard build is done. Time: {end_time - start_time}{Style.RESET_ALL}")
 
 
 @cli.command("build")

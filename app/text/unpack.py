@@ -10,6 +10,8 @@ from iostuff.writers.json import JsonWriter
 
 from os import makedirs
 from os.path import exists
+from colorama import Fore
+from colorama import Style
 
 
 def unpack_type(type: AbstractCompressionType) -> None:
@@ -21,11 +23,11 @@ def unpack_type(type: AbstractCompressionType) -> None:
         json_raw_path = get_json_raw_path(index)
 
         if not exists(binary_path):
-            print("[Not found]:", binary_path)
+            print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}", binary_path)
             continue
 
-        print("[Unpack text]:", binary_path, "->",
-              json_raw_path, f"({type.__class__.__name__})")
+        print(f"{Fore.GREEN}[Unpack text]:{Style.RESET_ALL}", binary_path, "->",
+              json_raw_path, f"{Fore.CYAN}({type.__class__.__name__}){Style.RESET_ALL}")
         with BinaryReader(binary_path) as reader:
             model = type.unpack(reader)
             with JsonWriter(json_raw_path) as writer:
