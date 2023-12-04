@@ -6,6 +6,7 @@ from app.text.pack import pack_text
 from app.csv.bundle import make_bundle, patch_bundle
 from app.utils.clear import clear_all, clear_bin, clear_json, clear_mods
 from app.graphic.tutorial import unpack_tutorials, decompress_tutorials
+from app.graphic.tutorial import unpack_binary_archive
 from time import perf_counter
 from colorama import init as colorama_init
 from colorama import Fore
@@ -104,6 +105,14 @@ def cli_decompress_gz(input_file: str, output_file: str):
 @click.argument("output-file")
 def cli_compress_gz(input_file: str, output_file: str):
     compress_gz(input_file, output_file)
+
+
+@cli.command("unpack-bin-arch")
+@click.argument("archive-path")
+@click.argument("output-path")
+@click.argument("entry-ext")
+def cli_unpack_binary_archive(archive_path: str, output_path: str, entry_ext: str):
+    unpack_binary_archive(archive_path, output_path, entry_ext)
 
 
 @cli.command("hard-build")
