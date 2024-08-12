@@ -1,4 +1,4 @@
-from app.utils.path import get_binary_path, get_json_raw_path, JSON_RAW_PATH
+from app.utils.path import get_entry_binary_path, get_entry_json_raw_path, JSON_RAW_PATH
 from app.binary.compression.base import AbstractCompressionType
 from app.binary.compression.support import SupportType
 from app.binary.compression.map import MapType
@@ -19,15 +19,20 @@ def unpack_type(type: AbstractCompressionType) -> None:
         makedirs(JSON_RAW_PATH)
 
     for index in type.indexes:
-        binary_path = get_binary_path(index)
-        json_raw_path = get_json_raw_path(index)
+        binary_path = get_entry_binary_path(index)
+        json_raw_path = get_entry_json_raw_path(index)
 
         if not exists(binary_path):
             print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}", binary_path)
             continue
 
-        print(f"{Fore.GREEN}[Unpack text]:{Style.RESET_ALL}", binary_path, "->",
-              json_raw_path, f"{Fore.CYAN}({type.__class__.__name__}){Style.RESET_ALL}")
+        print(
+            f"{Fore.GREEN}[Unpack text]:{Style.RESET_ALL}",
+            binary_path,
+            "->",
+            json_raw_path,
+            f"{Fore.CYAN}({type.__class__.__name__}){Style.RESET_ALL}",
+        )
         with BinaryReader(binary_path) as reader:
             model = type.unpack(reader)
             with JsonWriter(json_raw_path) as writer:

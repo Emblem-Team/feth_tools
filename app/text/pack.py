@@ -1,5 +1,8 @@
-from app.utils.path import get_mods_path, get_json_patched_path, MODS_PATH
-from app.binary.compression.base import AbstractCompressionType, AbstractCompressionModel
+from app.utils.path import get_entry_mods_path, get_entry_json_patched_path, MODS_PATH
+from app.binary.compression.base import (
+    AbstractCompressionType,
+    AbstractCompressionModel,
+)
 from app.binary.compression.support import SupportType
 from app.binary.compression.map import MapType
 from app.binary.compression.msgdata import MsgdataType
@@ -19,16 +22,19 @@ def pack_type(type: AbstractCompressionType) -> None:
         makedirs(MODS_PATH)
 
     for index in type.indexes:
-        json_patched_path = get_json_patched_path(index)
-        mods_path = get_mods_path(index)
+        json_patched_path = get_entry_json_patched_path(index)
+        mods_path = get_entry_mods_path(index)
 
         if not exists(json_patched_path):
-            print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}",
-                  json_patched_path)
+            print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}", json_patched_path)
             continue
 
-        print(f"{Fore.GREEN}[Pack text]:{Style.RESET_ALL}",
-              json_patched_path, "->", mods_path)
+        print(
+            f"{Fore.GREEN}[Pack text]:{Style.RESET_ALL}",
+            json_patched_path,
+            "->",
+            mods_path,
+        )
         with JsonReader[AbstractCompressionModel](json_patched_path) as model:
             with BinaryWriter(mods_path) as writer:
                 type.pack(model, writer)

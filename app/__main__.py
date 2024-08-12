@@ -127,7 +127,9 @@ def cli_hard_build(ctx: click.Context):
     ctx.invoke(cli_patch_bundle)
     ctx.invoke(cli_pack_text)
     end_time = perf_counter()
-    print(f"{Fore.CYAN}Hard build is done. Time: {end_time - start_time}{Style.RESET_ALL}")
+    print(
+        f"{Fore.CYAN}Hard build is done. Time: {end_time - start_time}{Style.RESET_ALL}"
+    )
 
 
 @cli.command("build")
@@ -143,6 +145,8 @@ def cli_build(ctx: click.Context):
 
 
 if __name__ == "__main__":
-    print(f"{Fore.YELLOW}=== Fire Emblem: Three Houses - Translating tools ==={Style.RESET_ALL}")
+    print(
+        f"{Fore.YELLOW}=== Fire Emblem: Three Houses - Translating tools ==={Style.RESET_ALL}"
+    )
     print(f"{Fore.YELLOW}=== by bqio ==={Style.RESET_ALL}")
     cli()

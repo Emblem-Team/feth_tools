@@ -3,51 +3,65 @@ from os.path import join, normpath, basename, splitext
 from colorama import Fore
 from colorama import Style
 from glob import glob
+from os import getenv
+from pathlib import Path
+from dotenv import load_dotenv
 
-DATA_PATH = "data"
-DATA0_PATH = join(DATA_PATH, "DATA0.bin")
-DATA1_PATH = join(DATA_PATH, "DATA1.bin")
-BIN_PATH = join(DATA_PATH, "bin")
-PATCHES_PATH = join(DATA_PATH, "patches")
-INFO0_PATH = join(PATCHES_PATH, "INFO0.bin")
-JSON_PATH = join(DATA_PATH, "json")
-JSON_RAW_PATH = join(JSON_PATH, "raw")
-JSON_PATCHED_PATH = join(JSON_PATH, "patched")
-CSV_PATH = join(DATA_PATH, "csv")
-BUNDLE_PATH = join(CSV_PATH, "bundle.csv")
-VARS_PATH = join(CSV_PATH, "vars.csv")
-FIXES_PATH = join(CSV_PATH, "fixes.csv")
-MODS_PATH = join(DATA_PATH, "mods")
-GRAPHIC_PATH = join(DATA_PATH, "graphic")
-TUTORIALS_PATH = join(GRAPHIC_PATH, "tutorials")
-TUTORIALS_BIN_PATH = join(BIN_PATH, "6131")
+load_dotenv()
 
+DATA_PATH = Path(getenv("DATA"))
+PATCHES_PATH = Path(getenv("PATCHES"))
 
-def get_mods_path(index: int | str) -> str:
-    return join(MODS_PATH, str(index))
+DATA0_PATH = Path(getenv("DATA0"))
+DATA1_PATH = Path(getenv("DATA1"))
 
+BIN_PATH = DATA_PATH / "bin"
+JSON_PATH = DATA_PATH / "json"
+CSV_PATH = DATA_PATH / "csv"
+MODS_PATH = DATA_PATH / "mods"
+GRAPHIC_PATH = DATA_PATH / "graphic"
 
-def get_binary_path(index: int | str) -> str:
-    return join(BIN_PATH, str(index))
+TUTORIALS_BIN_PATH = BIN_PATH / "6131"
 
+INFO0_PATH = PATCHES_PATH / "INFO0.bin"
 
-def get_binary_gz_path(index: int | str) -> str:
-    return join(BIN_PATH, f"{index}.gz")
+JSON_RAW_PATH = JSON_PATH / "raw"
+JSON_PATCHED_PATH = JSON_PATH / "patched"
 
+BUNDLE_PATH = CSV_PATH / "bundle.csv"
+VARS_PATH = CSV_PATH / "vars.csv"
+FIXES_PATH = CSV_PATH / "fixes.csv"
 
-def get_patch_path(filename: str) -> str:
-    return join(PATCHES_PATH, normpath(filename[5:]))
+TUTORIALS_PATH = GRAPHIC_PATH / "tutorials"
 
 
-def get_json_raw_path(index: int | str) -> str:
-    return join(JSON_RAW_PATH, f"{index}.json")
+def get_entry_mods_path(entry_index: int | str) -> Path:
+    return MODS_PATH / str(entry_index)
 
 
-def get_json_patched_path(index: int | str) -> str:
-    return join(JSON_PATCHED_PATH, f"{index}.json")
+def get_entry_binary_path(entry_index: int | str) -> Path:
+    return BIN_PATH / str(entry_index)
 
 
-def get_directory_file_list(directory: str, sort_int: bool = False, pattern: str = "*") -> list[str]:
+def get_entry_binary_gz_path(entry_index: int | str) -> Path:
+    return BIN_PATH / f"{entry_index}.gz"
+
+
+def get_patch_path(filename: str) -> Path:
+    return PATCHES_PATH / normpath(filename[5:])
+
+
+def get_entry_json_raw_path(entry_index: int | str) -> Path:
+    return JSON_RAW_PATH / f"{entry_index}.json"
+
+
+def get_entry_json_patched_path(entry_index: int | str) -> Path:
+    return JSON_PATCHED_PATH / f"{entry_index}.json"
+
+
+def get_directory_file_list(
+    directory: str, sort_int: bool = False, pattern: str = "*"
+) -> list[str]:
     files = glob(join(directory, pattern))
     if sort_int:
         ext = get_ext(files[0])
@@ -55,15 +69,14 @@ def get_directory_file_list(directory: str, sort_int: bool = False, pattern: str
         # remove more one ext
         numbers = list(map(lambda file: rm_ext(basename(file)), files))
         numbers.sort(key=int)
-        files = list(map(lambda file: join(
-            directory, f"{file}{ext}"), numbers))
+        files = list(map(lambda file: join(directory, f"{file}{ext}"), numbers))
     else:
         files.sort()
     return files
 
 
-def to_json_patched_path(path: str) -> str:
-    return join(JSON_PATCHED_PATH, basename(path))
+def to_json_patched_path(path: Path) -> Path:
+    return JSON_PATCHED_PATH / path.name
 
 
 def remove_files(files: list[str]) -> None:
@@ -84,5 +97,5 @@ def get_ext(path: str) -> str:
     return splitext(path)[1]
 
 
-def get_index(path: str) -> int:
-    return int(basename(splitext(path)[0]))
+def get_index(path: Path) -> int:
+    return int(path.stem)
