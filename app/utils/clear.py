@@ -1,13 +1,4 @@
-from app.utils.path import (
-    BIN_PATH,
-    JSON_PATCHED_PATH,
-    JSON_RAW_PATH,
-    MODS_PATH,
-    remove_files
-)
-
-from glob import glob
-from os.path import join
+from app.utils.path import BIN_PATH, JSON_PATCHED_PATH, JSON_RAW_PATH, MODS_PATH
 
 
 def clear_all() -> None:
@@ -17,13 +8,17 @@ def clear_all() -> None:
 
 
 def clear_bin() -> None:
-    remove_files(glob(join(BIN_PATH, "*")))
+    for file in BIN_PATH.glob("*"):
+        file.unlink()
 
 
 def clear_json() -> None:
-    remove_files(glob(join(JSON_RAW_PATH, "*.json")))
-    remove_files(glob(join(JSON_PATCHED_PATH, "*.json")))
+    for file in JSON_RAW_PATH.glob("*.json"):
+        file.unlink()
+    for file in JSON_PATCHED_PATH.glob("*.json"):
+        file.unlink()
 
 
 def clear_mods() -> None:
-    remove_files(glob(join(MODS_PATH, "*")))
+    for file in MODS_PATH.glob("*"):
+        file.unlink()

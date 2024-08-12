@@ -8,21 +8,18 @@ from app.binary.compression.subtitle import SubtitleType
 from iostuff.readers.binary import BinaryReader
 from iostuff.writers.json import JsonWriter
 
-from os import makedirs
-from os.path import exists
-from colorama import Fore
-from colorama import Style
+from colorama import Fore, Style
 
 
 def unpack_type(type: AbstractCompressionType) -> None:
-    if not exists(JSON_RAW_PATH):
-        makedirs(JSON_RAW_PATH)
+    if not JSON_RAW_PATH.exists():
+        JSON_RAW_PATH.mkdir()
 
     for index in type.indexes:
         binary_path = get_entry_binary_path(index)
         json_raw_path = get_entry_json_raw_path(index)
 
-        if not exists(binary_path):
+        if not binary_path.exists():
             print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}", binary_path)
             continue
 

@@ -8,9 +8,9 @@ from app.utils.path import (
 
 from iostuff.readers.binary import BinaryReader
 from iostuff.writers.binary import BinaryWriter
+from colorama import Fore, Style
 
-from colorama import Fore
-from colorama import Style
+ENTRY_BLOCK_SIZE = 0x20
 
 
 def unpack_binary() -> None:
@@ -25,7 +25,7 @@ def unpack_binary() -> None:
     if not BIN_PATH.exists():
         BIN_PATH.mkdir()
 
-    data0_entry_count = DATA0_PATH.stat().st_size // 0x20
+    data0_entry_count = DATA0_PATH.stat().st_size // ENTRY_BLOCK_SIZE
     with BinaryReader(DATA0_PATH) as data0_reader:
         with BinaryReader(DATA1_PATH) as data1_reader:
             for index in range(data0_entry_count):

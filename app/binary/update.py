@@ -3,13 +3,13 @@ from app.utils.path import (
     get_patch_path,
     get_entry_binary_path,
     get_entry_binary_gz_path,
+    copy_file,
 )
 
 from iostuff.readers.binary import BinaryReader
+from colorama import Fore, Style
 
-from shutil import copyfile
-from colorama import Fore
-from colorama import Style
+ENTRY_BLOCK_SIZE = 0x120
 
 
 def update_binary() -> None:
@@ -17,7 +17,7 @@ def update_binary() -> None:
         print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}", INFO0_PATH)
         exit(1)
 
-    info0_entry_count = INFO0_PATH.stat().st_size // 0x120
+    info0_entry_count = INFO0_PATH.stat().st_size // ENTRY_BLOCK_SIZE
 
     with BinaryReader(INFO0_PATH) as reader:
         for _ in range(info0_entry_count):
@@ -41,7 +41,7 @@ def update_binary() -> None:
                     "->",
                     binary_gz_path,
                 )
-                copyfile(patch_path, binary_gz_path)
+                copy_file(patch_path, binary_gz_path)
             else:
                 binary_path = get_entry_binary_path(index)
                 print(
@@ -50,6 +50,6 @@ def update_binary() -> None:
                     "->",
                     binary_path,
                 )
-                copyfile(patch_path, binary_path)
+                copy_file(patch_path, binary_path)
 
-            reader.align(0x120)
+            reader.align(ENTRY_BLOCK_SIZE)

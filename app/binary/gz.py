@@ -2,7 +2,7 @@ from iostuff.readers.binary import BinaryReader
 from iostuff.writers.binary import BinaryWriter
 
 from zlib import decompress, compress
-from os.path import getsize
+from pathlib import Path
 
 
 class Block:
@@ -19,8 +19,14 @@ class GZFile:
     data: bytes
 
 
+HEADER_SIZE = 0x4
+COMPRESSION_LEVEL = 0x9
+ENTRY_BLOCK_SIZE = 0x80
+BLOCK_SIZE = 0x10000
+
+
 def read_zlib_block(reader: BinaryReader) -> Block:
-    reader.align(0x80)
+    reader.align(ENTRY_BLOCK_SIZE)
     block = Block()
     block.size = reader.read_uint()
     block.data = decompress(reader.read(block.size))
@@ -28,7 +34,7 @@ def read_zlib_block(reader: BinaryReader) -> Block:
 
 
 def read_block(reader: BinaryReader) -> Block:
-    reader.align(0x80)
+    reader.align(ENTRY_BLOCK_SIZE)
     block = Block()
     block.size = reader.read_uint()
     block.data = reader.read(block.size)
@@ -37,12 +43,12 @@ def read_block(reader: BinaryReader) -> Block:
 
 def write_zlib_block(reader: BinaryReader, size: int) -> Block:
     block = Block()
-    block.data = compress(reader.read(size), 9)
-    block.size = len(block.data) + 4
+    block.data = compress(reader.read(size), COMPRESSION_LEVEL)
+    block.size = len(block.data) + HEADER_SIZE
     return block
 
 
-def decompress_gz(input_file: str, output_file: str) -> None:
+def decompress_gz(input_file: Path, output_file: Path) -> None:
     print("[Decompress gz]:", input_file, "->", output_file)
     with BinaryReader(input_file) as reader:
         file = GZFile()
@@ -61,7 +67,9 @@ def decompress_gz(input_file: str, output_file: str) -> None:
 
         # https://github.com/3096/koeipy/blob/master/koeipy/kt_gz.py#L69
         last_block_size = file.block_sizes[-1:][0]
-        if last_block_size == file.total_size - file.block_size * (file.block_count - 1):
+        if last_block_size == file.total_size - file.block_size * (
+            file.block_count - 1
+        ):
             block = read_block(reader)
             file.data += block.data
         else:
@@ -72,13 +80,13 @@ def decompress_gz(input_file: str, output_file: str) -> None:
             writer.write(file.data)
 
 
-def compress_gz(input_file: str, output_file: str) -> None:
+def compress_gz(input_file: Path, output_file: Path) -> None:
     print("[Compress gz]:", input_file, "->", output_file)
     with BinaryReader(input_file) as reader:
         with BinaryWriter(output_file) as writer:
             file = GZFile()
-            file.block_size = 0x10000
-            file.total_size = getsize(input_file)
+            file.block_size = BLOCK_SIZE
+            file.total_size = input_file.stat().st_size
             file.block_count = (file.total_size - 1) // file.block_size + 1
 
             file.blocks = []
@@ -94,6 +102,6 @@ def compress_gz(input_file: str, output_file: str) -> None:
                 writer.write_uint(block.size)
 
             for block in file.blocks:
-                writer.align(0x80)
-                writer.write_uint(block.size - 4)
+                writer.align(ENTRY_BLOCK_SIZE)
+                writer.write_uint(block.size - HEADER_SIZE)
                 writer.write(block.data)

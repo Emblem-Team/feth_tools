@@ -59,43 +59,9 @@ def get_entry_json_patched_path(entry_index: int | str) -> Path:
     return JSON_PATCHED_PATH / f"{entry_index}.json"
 
 
-def get_directory_file_list(
-    directory: str, sort_int: bool = False, pattern: str = "*"
-) -> list[str]:
-    files = glob(join(directory, pattern))
-    if sort_int:
-        ext = get_ext(files[0])
-        # TODO
-        # remove more one ext
-        numbers = list(map(lambda file: rm_ext(basename(file)), files))
-        numbers.sort(key=int)
-        files = list(map(lambda file: join(directory, f"{file}{ext}"), numbers))
-    else:
-        files.sort()
-    return files
+def copy_file(src: Path, dst: Path) -> int:
+    return dst.write_bytes(src.read_bytes())
 
 
 def to_json_patched_path(path: Path) -> Path:
     return JSON_PATCHED_PATH / path.name
-
-
-def remove_files(files: list[str]) -> None:
-    for file in files:
-        print(f"{Fore.RED}[Remove file]:{Style.RESET_ALL}", file)
-        remove(file)
-
-
-def rm_ext(path: str) -> str:
-    return splitext(path)[0]
-
-
-def add_ext(path: str, ext: str) -> str:
-    return f"{path}{ext}"
-
-
-def get_ext(path: str) -> str:
-    return splitext(path)[1]
-
-
-def get_index(path: Path) -> int:
-    return int(path.stem)
