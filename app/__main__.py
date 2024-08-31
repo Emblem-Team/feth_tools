@@ -11,6 +11,7 @@ from time import perf_counter
 from colorama import init as colorama_init
 from colorama import Fore
 from colorama import Style
+from pathlib import Path
 import click
 
 colorama_init()
@@ -96,14 +97,14 @@ def cli_decompress_tutorials():
 @cli.command("decompress-gz")
 @click.argument("input-file")
 @click.argument("output-file")
-def cli_decompress_gz(input_file: str, output_file: str):
+def cli_decompress_gz(input_file: Path, output_file: Path):
     decompress_gz(input_file, output_file)
 
 
 @cli.command("compress-gz")
 @click.argument("input-file")
 @click.argument("output-file")
-def cli_compress_gz(input_file: str, output_file: str):
+def cli_compress_gz(input_file: Path, output_file: Path):
     compress_gz(input_file, output_file)
 
 
@@ -111,24 +112,23 @@ def cli_compress_gz(input_file: str, output_file: str):
 @click.argument("archive-path")
 @click.argument("output-path")
 @click.argument("entry-ext")
-def cli_unpack_binary_archive(archive_path: str, output_path: str, entry_ext: str):
+def cli_unpack_binary_archive(archive_path: Path, output_path: Path, entry_ext: str):
     unpack_binary_archive(archive_path, output_path, entry_ext)
 
 
-@cli.command("hard-build")
+@cli.command("init")
 @click.pass_context
 def cli_hard_build(ctx: click.Context):
-    print(f"{Fore.YELLOW}Hard building...{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}Initialize...{Style.RESET_ALL}")
     start_time = perf_counter()
     ctx.invoke(cli_clear_all)
     ctx.invoke(cli_unpack_binary)
     ctx.invoke(cli_update_binary)
     ctx.invoke(cli_unpack_text)
-    ctx.invoke(cli_patch_bundle)
-    ctx.invoke(cli_pack_text)
+    ctx.invoke(cli_make_bundle)
     end_time = perf_counter()
     print(
-        f"{Fore.CYAN}Hard build is done. Time: {end_time - start_time}{Style.RESET_ALL}"
+        f"{Fore.CYAN}Initialize is done. Time: {end_time - start_time}s{Style.RESET_ALL}"
     )
 
 

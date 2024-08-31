@@ -24,9 +24,14 @@ def make_bundle() -> None:
         exit(0)
 
     if not CSV_PATH.exists():
-        CSV_PATH.mkdir()
+        CSV_PATH.mkdir(parents=True)
 
     unique_strings = []
+
+    print(
+        f"{Fore.GREEN}[Save bundle]:{Style.RESET_ALL}",
+        BUNDLE_PATH,
+    )
 
     with CSVWriter(BUNDLE_PATH) as writer:
         for file_path in JSON_RAW_PATH.glob("*.json"):
@@ -53,7 +58,7 @@ def patch_bundle() -> None:
         exit(0)
 
     if not JSON_PATCHED_PATH.exists():
-        JSON_PATCHED_PATH.mkdir()
+        JSON_PATCHED_PATH.mkdir(parents=True)
 
     vars = None
     fixes = None
@@ -90,8 +95,9 @@ def patch_bundle() -> None:
                 for patch in patches:
                     raw, translated = patch
                     model.apply_patch((scape_str(raw), scape_str(translated)))
-                for fix in fixes.items:
-                    if file_index == int(fix[0]):
-                        print(f"{Fore.GREEN}[Apply fix]:{Style.RESET_ALL}", fix)
-                        model.apply_fix(fix)
+                if fixes:
+                    for fix in fixes.items:
+                        if file_index == int(fix[0]):
+                            print(f"{Fore.GREEN}[Apply fix]:{Style.RESET_ALL}", fix)
+                            model.apply_fix(fix)
                 writer.write(model)

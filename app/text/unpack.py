@@ -13,7 +13,7 @@ from colorama import Fore, Style
 
 def unpack_type(type: AbstractCompressionType) -> None:
     if not JSON_RAW_PATH.exists():
-        JSON_RAW_PATH.mkdir()
+        JSON_RAW_PATH.mkdir(parents=True)
 
     for index in type.indexes:
         binary_path = get_entry_binary_path(index)

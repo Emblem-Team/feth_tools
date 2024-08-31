@@ -13,6 +13,39 @@
 
 ### Requirements
 
-- Python 3
+- Python 3.12
 - DATA0.bin / DATA1.bin
-- Updates, if need
+- Patches, if need
+
+### Usage
+
+#### Install deps
+
+```
+py -m venv env
+env\scripts\pip install -r requirements.txt
+```
+
+#### Create .env file and fill your data
+
+```
+copy .env.example .env
+```
+
+#### Init tools
+
+```
+env\scripts\python -m app init
+```
+
+#### Build
+
+```
+env\scripts\python -m app build
+```
+
+#### Show all commands
+
+```
+env\scripts\python -m app
+```

@@ -9,17 +9,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATA_PATH = Path(getenv("DATA"))
+WORKDIR_PATH = Path(getenv("WORKDIR"))
 PATCHES_PATH = Path(getenv("PATCHES"))
 
 DATA0_PATH = Path(getenv("DATA0"))
 DATA1_PATH = Path(getenv("DATA1"))
 
-BIN_PATH = DATA_PATH / "bin"
-JSON_PATH = DATA_PATH / "json"
-CSV_PATH = DATA_PATH / "csv"
-MODS_PATH = DATA_PATH / "mods"
-GRAPHIC_PATH = DATA_PATH / "graphic"
+BIN_PATH = WORKDIR_PATH / "bin"
+JSON_PATH = WORKDIR_PATH / "json"
+CSV_PATH = WORKDIR_PATH / "csv"
+MODS_PATH = WORKDIR_PATH / "mods"
+GRAPHIC_PATH = WORKDIR_PATH / "graphic"
 
 TUTORIALS_BIN_PATH = BIN_PATH / "6131"
 

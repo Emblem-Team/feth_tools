@@ -1,10 +1,11 @@
-from app.utils.path import BIN_PATH, JSON_PATCHED_PATH, JSON_RAW_PATH, MODS_PATH
+from app.utils.path import BIN_PATH, CSV_PATH, JSON_PATCHED_PATH, JSON_RAW_PATH, MODS_PATH
 
 
 def clear_all() -> None:
     clear_bin()
     clear_json()
     clear_mods()
+    clear_csv()
 
 
 def clear_bin() -> None:
@@ -21,4 +22,8 @@ def clear_json() -> None:
 
 def clear_mods() -> None:
     for file in MODS_PATH.glob("*"):
+        file.unlink()
+
+def clear_csv() -> None:
+    for file in CSV_PATH.glob("*"):
         file.unlink()
