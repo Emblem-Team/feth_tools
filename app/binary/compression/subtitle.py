@@ -1,7 +1,7 @@
 from app.common.indexes import SUBTITLE_TEXT_INDEXES
 from app.binary.compression.base import (
     AbstractCompressionModel,
-    AbstractCompressionType
+    AbstractCompressionType,
 )
 
 from iostuff.common.utf8 import utf8_string_length
@@ -15,16 +15,18 @@ class SubtitleModel(AbstractCompressionModel):
     offsets: list[int]
     lines: list[list]
 
-    def get_strings(self) -> list[str]:
+    @property
+    def strings(self) -> list[str]:
         return list(map(lambda line: line[1], self.lines))
 
-    def apply_patch(self, patch: tuple[str, str]) -> None:
-        for line_index, line in enumerate(self.lines):
-            if line[1] == patch[0]:
-                self.lines[line_index][1] = patch[1]
+    def patch(self, strings: list[str]) -> None:
+        string_idx = 0
+        for line_index, _ in enumerate(self.lines):
+            self.lines[line_index][1] = strings[string_idx]
+            string_idx += 1
 
-    def apply_fix(self, fix: list) -> None:
-        self.lines[int(fix[1])][1] = fix[4]
+    def str(self) -> str:
+        return "SUBTITLE"
 
 
 class SubtitleType(AbstractCompressionType):

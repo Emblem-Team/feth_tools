@@ -1,7 +1,7 @@
 from app.common.indexes import SUPPORT_TEXT_INDEXES
 from app.binary.compression.base import (
     AbstractCompressionType,
-    AbstractCompressionModel
+    AbstractCompressionModel,
 )
 
 from iostuff.common.utf8 import utf8_string_length
@@ -17,16 +17,18 @@ class SupportModel(AbstractCompressionModel):
     pointers: list[int]
     text: list[str]
 
-    def get_strings(self) -> list[str]:
+    @property
+    def strings(self) -> list[str]:
         return self.text
 
-    def apply_patch(self, patch: tuple[str, str]) -> None:
-        for line_index, line in enumerate(self.text):
-            if line == patch[0]:
-                self.text[line_index] = patch[1]
+    def patch(self, strings: list[str]) -> None:
+        string_idx = 0
+        for line_index, _ in enumerate(self.text):
+            self.text[line_index] = strings[string_idx]
+            string_idx += 1
 
-    def apply_fix(self, fix: list) -> None:
-        self.text[int(fix[1])] = fix[4]
+    def str(self) -> str:
+        return "SUPPORT"
 
 
 class SupportType(AbstractCompressionType):
@@ -46,8 +48,7 @@ class SupportType(AbstractCompressionType):
         for _ in range(file.number_of_pointers + 1):
             file.pointers.append(reader.read_uint())
 
-        text_relative_offset = \
-            file.pointer_table_offset + file.pointer_table_size
+        text_relative_offset = file.pointer_table_offset + file.pointer_table_size
 
         file.text = []
         for i in range(file.number_of_pointers):

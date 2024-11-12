@@ -8,16 +8,17 @@ if TYPE_CHECKING:
 
 
 class AbstractCompressionModel(ABC):
+    @property
     @abstractmethod
-    def get_strings(self) -> list[str]:
+    def strings(self) -> list[str]:
         pass
 
     @abstractmethod
-    def apply_patch(self, patch: tuple[str, str]) -> None:
+    def patch(self, strings: list[str]) -> None:
         pass
 
     @abstractmethod
-    def apply_fix(self, fix: list) -> None:
+    def str(self) -> str:
         pass
 
 
@@ -28,5 +29,6 @@ class AbstractCompressionType(ABC):
     def unpack(self, reader: BinaryReader) -> AbstractCompressionModel:
         pass
 
+    @abstractmethod
     def pack(self, model: AbstractCompressionModel, writer: BinaryWriter) -> None:
         pass

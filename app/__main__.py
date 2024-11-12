@@ -7,14 +7,16 @@ from app.csv.bundle import make_bundle, patch_bundle
 from app.utils.clear import clear_all, clear_bin, clear_json, clear_mods
 from app.graphic.tutorial import unpack_tutorials, decompress_tutorials
 from app.graphic.tutorial import unpack_binary_archive
+
 from time import perf_counter
-from colorama import init as colorama_init
-from colorama import Fore
-from colorama import Style
+from colorama import init as colorama_init, Fore, Style
 from pathlib import Path
+from dotenv import load_dotenv
+
 import click
 
 colorama_init()
+load_dotenv()
 
 
 @click.group()

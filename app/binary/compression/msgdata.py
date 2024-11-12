@@ -3,7 +3,7 @@ from app.utils.enums import LanguageEnum
 from app.utils.common import actived_flags_count
 from app.binary.compression.base import (
     AbstractCompressionType,
-    AbstractCompressionModel
+    AbstractCompressionModel,
 )
 
 from iostuff.readers.binary import BinaryReader
@@ -34,7 +34,8 @@ class MsgdataModel(AbstractCompressionModel):
     pointers: list[list[int]]
     languages: list[Language]
 
-    def get_strings(self) -> list[str]:
+    @property
+    def strings(self) -> list[str]:
         strings = []
         for table in self.languages[LanguageEnum.ENG_E].tables:
             for text in table.text:
@@ -42,16 +43,16 @@ class MsgdataModel(AbstractCompressionModel):
                     strings.append(line)
         return strings
 
-    def apply_patch(self, patch: tuple[str, str]) -> None:
-        for table_index, table in enumerate(self.languages[LanguageEnum.ENG_E].tables):
-            for text_index, text in enumerate(table.text):
-                for line_index, line in enumerate(text):
-                    if line == patch[0]:
-                        self.languages[LanguageEnum.ENG_E].tables[table_index].text[text_index][line_index] = patch[1]
+    def patch(self, strings: list[str]) -> None:
+        string_idx = 0
+        for table in self.languages[LanguageEnum.ENG_E].tables:
+            for text in table.text:
+                for line_index, _ in enumerate(text):
+                    text[line_index] = strings[string_idx]
+                    string_idx += 1
 
-    def apply_fix(self, fix: list) -> None:
-        self.languages[LanguageEnum.ENG_E].tables[int(
-            fix[1])].text[int(fix[2])][int(fix[3])] = fix[4]
+    def str(self) -> str:
+        return "MSGDATA"
 
 
 class MsgdataType(AbstractCompressionType):
@@ -74,8 +75,7 @@ class MsgdataType(AbstractCompressionType):
 
             language.pointers = []
             for _ in range(language.number_of_tables):
-                language.pointers.append(
-                    [reader.read_uint(), reader.read_uint()])
+                language.pointers.append([reader.read_uint(), reader.read_uint()])
 
             language.tables = []
             for _ in range(language.number_of_tables):

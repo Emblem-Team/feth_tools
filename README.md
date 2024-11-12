@@ -22,8 +22,8 @@
 #### Install deps
 
 ```
-py -m venv env
-env\scripts\pip install -r requirements.txt
+py -m venv venv
+venv\scripts\pip install -r requirements.txt
 ```
 
 #### Create .env file and fill your data
@@ -35,17 +35,17 @@ copy .env.example .env
 #### Init tools
 
 ```
-env\scripts\python -m app init
+venv\scripts\python -m app init
 ```
 
 #### Build
 
 ```
-env\scripts\python -m app build
+venv\scripts\python -m app build
 ```
 
 #### Show all commands
 
 ```
-env\scripts\python -m app
+venv\scripts\python -m app
 ```

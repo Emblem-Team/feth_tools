@@ -1,2 +1,2 @@
-env\scripts\python -m app build
+venv\scripts\python -m app build
 pause

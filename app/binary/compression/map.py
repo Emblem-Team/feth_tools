@@ -1,7 +1,7 @@
 from app.common.indexes import MAP_TEXT_INDEXES
 from app.binary.compression.base import (
     AbstractCompressionModel,
-    AbstractCompressionType
+    AbstractCompressionType,
 )
 
 from iostuff.common.utf8 import utf8_string_length
@@ -14,16 +14,18 @@ class MapModel(AbstractCompressionModel):
     pointers: list[list[int]]
     text: list[str]
 
-    def get_strings(self) -> list[str]:
+    @property
+    def strings(self) -> list[str]:
         return self.text
 
-    def apply_patch(self, patch: tuple[str, str]) -> None:
-        for line_index, line in enumerate(self.text):
-            if line == patch[0]:
-                self.text[line_index] = patch[1]
+    def patch(self, strings: list[str]) -> None:
+        string_idx = 0
+        for line_index, _ in enumerate(self.text):
+            self.text[line_index] = strings[string_idx]
+            string_idx += 1
 
-    def apply_fix(self, fix: list) -> None:
-        self.text[int(fix[1])] = fix[4]
+    def str(self) -> str:
+        return "MAP"
 
 
 class MapType(AbstractCompressionType):
@@ -57,7 +59,7 @@ class MapType(AbstractCompressionType):
 
     def calculate_pointers(self, text: list[str]) -> list[list[int]]:
         header_size = 4
-        pointers_size = (8 * len(text))
+        pointers_size = 8 * len(text)
         relative_offset = header_size + pointers_size
         pointers = []
         for line in text:

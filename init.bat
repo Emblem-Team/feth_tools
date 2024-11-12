@@ -1,2 +1,2 @@
-env\scripts\python -m app init
+venv\scripts\python -m app init
 pause

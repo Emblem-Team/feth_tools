@@ -1,6 +1,4 @@
-ESC_PAIR = [
-    ("\u001b", "<<ESC>>")
-]
+ESC_PAIR = [("\u001b", "$")]
 
 
 def escape_str(string: str) -> str:
