@@ -1,5 +1,8 @@
 from os import getenv
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 DATA_PATH = Path(getenv("DATA"))
 PATCHES_PATH = Path(getenv("PATCHES"))

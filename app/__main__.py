@@ -11,12 +11,11 @@ from app.graphic.tutorial import unpack_binary_archive
 from time import perf_counter
 from colorama import init as colorama_init, Fore, Style
 from pathlib import Path
-from dotenv import load_dotenv
+
 
 import click
 
 colorama_init()
-load_dotenv()
 
 
 @click.group()
