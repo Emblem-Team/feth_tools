@@ -1,6 +1,0 @@
-@echo off
-echo Initializing env...
-py -m venv venv
-echo Installing deps...
-venv\scripts\pip install -r requirements.txt
-pause
