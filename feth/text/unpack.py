@@ -1,9 +1,13 @@
-from app.utils.path import get_entry_binary_path, get_entry_json_raw_path, JSON_RAW_PATH
-from app.binary.compression.base import AbstractCompressionType
-from app.binary.compression.support import SupportType
-from app.binary.compression.map import MapType
-from app.binary.compression.msgdata import MsgdataType
-from app.binary.compression.subtitle import SubtitleType
+from feth.utils.path import (
+    get_entry_binary_path,
+    get_entry_json_raw_path,
+    JSON_RAW_PATH,
+)
+from feth.binary.compression.base import AbstractCompressionType
+from feth.binary.compression.support import SupportType
+from feth.binary.compression.map import MapType
+from feth.binary.compression.msgdata import MsgdataType
+from feth.binary.compression.subtitle import SubtitleType
 
 from iostuff.readers.binary import BinaryReader
 from iostuff.writers.json import JsonWriter

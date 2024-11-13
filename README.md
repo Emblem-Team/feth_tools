@@ -19,11 +19,17 @@
 
 ### Usage
 
+#### Create and activate env
+
+```
+python -m venv .venv
+source .venv/bin/activate (unix,mac) or .venv\Scripts\activate (windows)
+```
+
 #### Install deps
 
 ```
-py -m venv venv
-venv\scripts\pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 #### Create .env file and fill your data
@@ -35,17 +41,17 @@ copy .env.example .env
 #### Init tools
 
 ```
-venv\scripts\python -m app init
+python -m feth init
 ```
 
 #### Build
 
 ```
-venv\scripts\python -m app build
+python -m feth build
 ```
 
 #### Show all commands
 
 ```
-venv\scripts\python -m app
+python -m feth
 ```

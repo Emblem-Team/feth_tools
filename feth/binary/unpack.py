@@ -1,4 +1,4 @@
-from app.utils.path import (
+from feth.utils.path import (
     get_entry_binary_path,
     get_entry_binary_gz_path,
     BIN_PATH,

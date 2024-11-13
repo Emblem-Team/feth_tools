@@ -1,12 +1,12 @@
-from app.binary.unpack import unpack_binary
-from app.binary.update import update_binary
-from app.binary.gz import decompress_gz, compress_gz
-from app.text.unpack import unpack_text
-from app.text.pack import pack_text
-from app.csv.bundle import make_bundle, patch_bundle
-from app.utils.clear import clear_all, clear_bin, clear_json, clear_mods
-from app.graphic.tutorial import unpack_tutorials, decompress_tutorials
-from app.graphic.tutorial import unpack_binary_archive
+from feth.binary.unpack import unpack_binary
+from feth.binary.update import update_binary
+from feth.binary.gz import decompress_gz, compress_gz
+from feth.text.unpack import unpack_text
+from feth.text.pack import pack_text
+from feth.csv.bundle import make_bundle, patch_bundle
+from feth.utils.clear import clear_all, clear_bin, clear_json, clear_mods
+from feth.graphic.tutorial import unpack_tutorials, decompress_tutorials
+from feth.graphic.tutorial import unpack_binary_archive
 
 from time import perf_counter
 from colorama import init as colorama_init, Fore, Style

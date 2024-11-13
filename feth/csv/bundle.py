@@ -1,5 +1,5 @@
 from pathlib import Path
-from app.utils.path import (
+from feth.utils.path import (
     get_entry_json_raw_path,
     to_csv_path,
     to_json_patched_path,
@@ -9,10 +9,10 @@ from app.utils.path import (
     JSON_PATCHED_PATH,
     VARS_PATH,
 )
-from app.utils.string import escape_str, scape_str
-from app.csv.vars import Variables
-from app.binary.compression.base import AbstractCompressionModel
-from app.csv.header import FileHeader, NoneHeader, RepeatHeader
+from feth.utils.string import escape_str, scape_str
+from feth.csv.vars import Variables
+from feth.binary.compression.base import AbstractCompressionModel
+from feth.csv.header import FileHeader, NoneHeader, RepeatHeader
 from iostuff.readers.json import JsonReader
 from iostuff.writers.json import JsonWriter
 from iostuff.writers.csv import CSVWriter

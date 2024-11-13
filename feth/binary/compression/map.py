@@ -1,5 +1,5 @@
-from app.common.indexes import MAP_TEXT_INDEXES
-from app.binary.compression.base import (
+from feth.common.indexes import MAP_TEXT_INDEXES
+from feth.binary.compression.base import (
     AbstractCompressionModel,
     AbstractCompressionType,
 )

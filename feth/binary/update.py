@@ -1,4 +1,4 @@
-from app.utils.path import (
+from feth.utils.path import (
     INFO0_PATH,
     get_patch_path,
     get_entry_binary_path,

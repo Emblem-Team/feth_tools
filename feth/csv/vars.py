@@ -1,4 +1,4 @@
-from app.utils.path import VARS_PATH
+from feth.utils.path import VARS_PATH
 
 from iostuff.readers.csv import CSVReader
 

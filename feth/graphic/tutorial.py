@@ -1,5 +1,5 @@
-from app.binary.gz import decompress_gz
-from app.utils.path import TUTORIALS_PATH, TUTORIALS_BIN_PATH
+from feth.binary.gz import decompress_gz
+from feth.utils.path import TUTORIALS_PATH, TUTORIALS_BIN_PATH
 from iostuff.readers.binary import BinaryReader
 from iostuff.writers.binary import BinaryWriter
 from pathlib import Path

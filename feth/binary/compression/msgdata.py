@@ -1,7 +1,7 @@
-from app.common.indexes import MSGDATA_TEXT_INDEXES
-from app.utils.enums import LanguageEnum
-from app.utils.common import actived_flags_count
-from app.binary.compression.base import (
+from feth.common.indexes import MSGDATA_TEXT_INDEXES
+from feth.utils.enums import LanguageEnum
+from feth.utils.common import actived_flags_count
+from feth.binary.compression.base import (
     AbstractCompressionType,
     AbstractCompressionModel,
 )
