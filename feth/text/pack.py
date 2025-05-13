@@ -28,9 +28,9 @@ def pack_type(type: AbstractCompressionType) -> None:
 
         print(
             f"{Fore.GREEN}[Pack text]:{Style.RESET_ALL}",
-            json_patched_path,
+            json_patched_path.name,
             "->",
-            mods_path,
+            mods_path.name,
         )
         with JsonReader[AbstractCompressionModel](json_patched_path) as model:
             with BinaryWriter(mods_path) as writer:
