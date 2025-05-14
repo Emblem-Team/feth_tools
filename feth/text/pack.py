@@ -16,7 +16,7 @@ from colorama import Fore, Style
 
 def pack_type(type: AbstractCompressionType) -> None:
     if not MODS_PATH.exists():
-        MODS_PATH.mkdir()
+        MODS_PATH.mkdir(parents=True)
 
     for index in type.indexes:
         json_patched_path = get_entry_json_patched_path(index)

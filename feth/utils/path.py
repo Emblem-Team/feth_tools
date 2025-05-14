@@ -6,6 +6,12 @@ load_dotenv()
 
 DATA_PATH = Path(getenv("DATA"))
 PATCHES_PATH = Path(getenv("PATCHES"))
+PACKAGE_PATH = DATA_PATH / "package"
+NX_PATH = PACKAGE_PATH / "nx"
+EMU_PATH = PACKAGE_PATH / "emu"
+NX_README_PATH = NX_PATH / "README.txt"
+EMU_README_PATH = EMU_PATH / "README.txt"
+ATMO_PATH = NX_PATH / "atmosphere" / "contents" / "010055d009f78000"
 
 DATA0_PATH = Path(getenv("DATA0"))
 DATA1_PATH = Path(getenv("DATA1"))
@@ -13,8 +19,10 @@ DATA1_PATH = Path(getenv("DATA1"))
 BIN_PATH = DATA_PATH / "bin"
 JSON_PATH = DATA_PATH / "json"
 CSV_PATH = DATA_PATH / "csv"
-MODS_PATH = DATA_PATH / "mods"
 GRAPHIC_PATH = DATA_PATH / "graphic"
+LAYRED_FS_PATH = DATA_PATH / "romfs"
+MODS_PATH = LAYRED_FS_PATH / "mods"
+ATTACH_PATH = DATA_PATH / "attach"
 
 TUTORIALS_BIN_PATH = BIN_PATH / "6131"
 

@@ -4,6 +4,7 @@ from feth.utils.path import (
     BUNDLE_PATH,
     CSV_PATH,
     JSON_PATCHED_PATH,
+    VARS_PATH,
 )
 from feth.utils.string import escape_str, scape_str
 from feth.binary.compression.base import AbstractCompressionModel
@@ -47,6 +48,10 @@ def patch_bundle() -> None:
 
     if not BUNDLE_PATH.exists():
         print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}", BUNDLE_PATH)
+        exit(0)
+
+    if not VARS_PATH.exists():
+        print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}", VARS_PATH)
         exit(0)
 
     if not JSON_PATCHED_PATH.exists():

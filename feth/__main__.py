@@ -6,6 +6,8 @@ from feth.text.pack import pack_text
 from feth.csv.bundle import make_bundle, patch_bundle
 from feth.utils.clear import clear_all, clear_bin, clear_json, clear_mods
 from feth.utils.merge import merge_bundles
+from feth.build.pack_info import build_distrib
+from feth.build.arch import make_nx_arch
 from feth.graphic.tutorial import unpack_tutorials, decompress_tutorials
 from feth.graphic.tutorial import unpack_binary_archive
 
@@ -48,6 +50,13 @@ def cli_pack_text():
     pack_text()
 
 
+@cli.command("make-arch")
+@click.argument("version")
+def cli_make_arch(version: str):
+    print(f"{Fore.YELLOW}Making archives...{Style.RESET_ALL}")
+    make_nx_arch(version)
+
+
 @cli.command("make-bundle")
 def cli_make_bundle():
     print(f"{Fore.YELLOW}Making bundle...{Style.RESET_ALL}")
@@ -88,6 +97,12 @@ def cli_clear_mods():
 def cli_unpack_tutorials():
     print(f"{Fore.YELLOW}Unpacking tutorials...{Style.RESET_ALL}")
     unpack_tutorials()
+
+
+@cli.command("build-distrib")
+def cli_build_distrib():
+    print(f"{Fore.YELLOW}Building distribution...{Style.RESET_ALL}")
+    build_distrib()
 
 
 @cli.command("decompress-tutorials")
@@ -153,6 +168,7 @@ def cli_build(ctx: click.Context):
     ctx.invoke(cli_clear_mods)
     ctx.invoke(cli_patch_bundle)
     ctx.invoke(cli_pack_text)
+    ctx.invoke(cli_build_distrib)
     end_time = perf_counter()
     print(f"{Fore.CYAN}Build is done. Time: {end_time - start_time}{Style.RESET_ALL}")
 
