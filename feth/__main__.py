@@ -5,6 +5,7 @@ from feth.text.unpack import unpack_text
 from feth.text.pack import pack_text
 from feth.csv.bundle import make_bundle, patch_bundle
 from feth.utils.clear import clear_all, clear_bin, clear_json, clear_mods
+from feth.utils.merge import merge_bundles
 from feth.graphic.tutorial import unpack_tutorials, decompress_tutorials
 from feth.graphic.tutorial import unpack_binary_archive
 
@@ -93,6 +94,17 @@ def cli_unpack_tutorials():
 def cli_decompress_tutorials():
     print(f"{Fore.YELLOW}Decompressing tutorials...{Style.RESET_ALL}")
     decompress_tutorials()
+
+
+@cli.command("merge-bundles")
+@click.argument("src-bundle-path")
+@click.argument("dest-bundle-path")
+@click.argument("out-bundle-path")
+def cli_merge_bundles(
+    src_bundle_path: Path, dest_bundle_path: Path, out_bundle_path: Path
+):
+    print(f"{Fore.YELLOW}Merging bundles...{Style.RESET_ALL}")
+    merge_bundles(src_bundle_path, dest_bundle_path, out_bundle_path)
 
 
 @cli.command("decompress-gz")
