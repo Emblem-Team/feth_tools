@@ -31,12 +31,15 @@ class InfoEntry:
     def data(self):
         if self.entry_data:
             return self.entry_data
+        path = str(pathlib.Path(self.path.parent.name + "/" + self.path.name)).replace(
+            "\\", "/"
+        )
         return INFO_ENTRY_STRUCT.pack(
             self.index,
             self.size,
             self.size,
             0,
-            ("rom:/" + "/".join(self.path.parts[1:])).encode("ascii"),
+            ("rom:/" + path).encode("ascii"),
         )
 
 
