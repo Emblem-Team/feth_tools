@@ -43,7 +43,7 @@ class MapType(AbstractCompressionType):
         file.text = []
         for i in range(file.number_of_pointers):
             reader.seek(file.pointers[i][0])
-            file.text.append(reader.read_utf8_string(file.pointers[i][1] + 1))
+            file.text.append(reader.read_utf8_nt_string())
 
         return file
 

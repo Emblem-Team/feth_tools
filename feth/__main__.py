@@ -103,7 +103,7 @@ def cli_decompress_tutorials():
 def cli_merge_bundles(
     src_bundle_path: Path, dest_bundle_path: Path, out_bundle_path: Path
 ):
-    print(f"{Fore.YELLOW}Merging bundles...{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}Merging bundles... (!!LONG OPERATION!!){Style.RESET_ALL}")
     merge_bundles(src_bundle_path, dest_bundle_path, out_bundle_path)
 
 
