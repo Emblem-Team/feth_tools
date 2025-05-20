@@ -9,7 +9,7 @@ from feth.utils.merge import merge_bundles
 from feth.build.pack_info import build_distrib
 from feth.build.arch import make_nx_arch
 from feth.graphic.tutorial import unpack_tutorials, decompress_tutorials
-from feth.graphic.tutorial import unpack_binary_archive
+from feth.graphic.ba import unpack_binary_archive
 
 from time import perf_counter
 from colorama import init as colorama_init, Fore, Style
