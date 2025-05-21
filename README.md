@@ -10,6 +10,7 @@
 - Packing json models into binary
 - Decompressing/compressing koei gz
 - Unpacking game tutorials (graphic)
+- Creating emu/nx version packages and creating zip bundles
 
 ### Requirements
 
@@ -19,39 +20,49 @@
 
 ### Usage
 
-#### Create and activate env
+Create and activate environment.
 
-```
+```bash
 python -m venv .venv
-source .venv/bin/activate (unix,mac) or .venv\Scripts\activate (windows)
+source .venv/bin/activate
 ```
 
-#### Install deps
+Install dependencies.
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
-#### Create .env file and fill your data
+Create .env file
 
-```
+```bash
 copy .env.example .env
 ```
 
-#### Init tools
+Create a workdir folder in any location. Inside it, create two subfolders: `data` and `patches`.
 
-```
+Place `DATA0.bin` and `DATA1.bin` into the `data` folder, and all patches (folders patch1–patch4) into the `patches` folder.
+
+Fill in the `.env` file by specifying the paths to your folders.
+
+Then run
+
+```bash
 python -m feth init
 ```
 
-#### Build
+This will create the `bundle.csv` file, which contains the game's text.
+
+**The `file_index`, `file_type` and `source_language` fields are for internal use—do not edit them.**
+
+After editing the `bundle.csv` file, run the command
 
 ```
 python -m feth build
 ```
 
-#### Show all commands
+To view all available commands, run:
 
-```
+```bash
 python -m feth
 ```
