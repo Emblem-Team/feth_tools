@@ -14,8 +14,8 @@
 ### Requirements
 
 - Python 3.12
-- DATA0.bin / DATA1.bin
-- Patches, if need
+- [DATA0.bin / DATA1.bin](https://github.com/bqio/feth-extractor)
+- [Latest patches](https://github.com/bqio/feth-extractor)
 
 ### Usage
 
