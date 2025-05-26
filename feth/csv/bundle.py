@@ -4,11 +4,9 @@ from feth.utils.path import (
     BUNDLE_PATH,
     CSV_PATH,
     JSON_PATCHED_PATH,
-    VARS_PATH,
 )
 from feth.utils.string import escape_str, scape_str
 from feth.binary.compression.base import AbstractCompressionModel
-from feth.csv.vars import Variables
 from iostuff.readers.json import JsonReader
 from iostuff.writers.json import JsonWriter
 from iostuff.writers.csv import CSVWriter
@@ -50,15 +48,8 @@ def patch_bundle() -> None:
         print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}", BUNDLE_PATH)
         exit(0)
 
-    if not VARS_PATH.exists():
-        print(f"{Fore.RED}[Not found]:{Style.RESET_ALL}", VARS_PATH)
-        exit(0)
-
     if not JSON_PATCHED_PATH.exists():
         JSON_PATCHED_PATH.mkdir(parents=True)
-
-    vars = Variables()
-    vars.load()
 
     buf = {}
 
@@ -74,7 +65,7 @@ def patch_bundle() -> None:
             if file_index not in buf:
                 buf[file_index] = []
 
-            buf[file_index].append(scape_str(vars.parse(destination_language)))
+            buf[file_index].append(scape_str(destination_language))
 
     for json_path in JSON_RAW_PATH.glob("*.json"):
         patched_path = to_json_patched_path(json_path)
