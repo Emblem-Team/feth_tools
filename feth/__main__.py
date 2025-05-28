@@ -1,15 +1,19 @@
 from feth.binary.unpack import unpack_binary
-from feth.binary.update import update_binary
+from feth.binary.update import update_info0_binary, update_info1_binary
 from feth.binary.gz import decompress_gz, compress_gz
 from feth.text.unpack import unpack_text
 from feth.text.pack import pack_text
-from feth.csv.bundle import make_bundle, patch_bundle
+from feth.csv.bundle import make_bundle, patch_bundle, make_dlc_bundle
 from feth.utils.clear import clear_all, clear_bin, clear_json, clear_mods
 from feth.utils.merge import merge_bundles
 from feth.build.pack_info import build_distrib
 from feth.build.arch import make_nx_arch
 from feth.graphic.tutorial import unpack_tutorials, decompress_tutorials
 from feth.graphic.ba import unpack_binary_archive
+from feth.parser.support import parse_support_files
+from feth.parser.map import parse_map_files
+from feth.parser.msgdata import parse_msgdata_files
+from feth.parser.subtitle import parse_subtitle_files
 
 from time import perf_counter
 from colorama import init as colorama_init, Fore, Style
@@ -35,7 +39,8 @@ def cli_unpack_binary():
 @cli.command("update-bin")
 def cli_update_binary():
     print(f"{Fore.YELLOW}Updating binary...{Style.RESET_ALL}")
-    update_binary()
+    update_info0_binary()
+    update_info1_binary()
 
 
 @cli.command("unpack-text")
@@ -61,6 +66,8 @@ def cli_make_arch(version: str):
 def cli_make_bundle():
     print(f"{Fore.YELLOW}Making bundle...{Style.RESET_ALL}")
     make_bundle()
+    print(f"{Fore.YELLOW}Making dlc bundle...{Style.RESET_ALL}")
+    make_dlc_bundle()
 
 
 @cli.command("patch-bundle")
@@ -142,6 +149,30 @@ def cli_compress_gz(input_file: Path, output_file: Path):
 @click.argument("entry-ext")
 def cli_unpack_binary_archive(archive_path: Path, output_path: Path, entry_ext: str):
     unpack_binary_archive(archive_path, output_path, entry_ext)
+
+
+@cli.command("parse-support")
+@click.argument("dirs-path")
+def cli_parse_support(dirs_path: Path):
+    parse_support_files(dirs_path)
+
+
+@cli.command("parse-map")
+@click.argument("dirs-path")
+def cli_parse_map(dirs_path: Path):
+    parse_map_files(dirs_path)
+
+
+@cli.command("parse-msgdata")
+@click.argument("dirs-path")
+def cli_parse_msgdata(dirs_path: Path):
+    parse_msgdata_files(dirs_path)
+
+
+@cli.command("parse-subtitle")
+@click.argument("dirs-path")
+def cli_parse_subtitle(dirs_path: Path):
+    parse_subtitle_files(dirs_path)
 
 
 @cli.command("init")

@@ -1,4 +1,4 @@
-from feth.common.indexes import SUPPORT_TEXT_INDEXES
+from feth.common.indexes import SUPPORT_TEXT_INDEXES, DLC_SUPPORT_INDEXES
 from feth.binary.compression.base import (
     AbstractCompressionType,
     AbstractCompressionModel,
@@ -33,7 +33,7 @@ class SupportModel(AbstractCompressionModel):
 
 class SupportType(AbstractCompressionType):
     def __init__(self) -> None:
-        self.indexes = SUPPORT_TEXT_INDEXES
+        self.indexes = [*SUPPORT_TEXT_INDEXES, *DLC_SUPPORT_INDEXES]
 
     def unpack(self, reader: BinaryReader) -> SupportModel:
         file = SupportModel()

@@ -1,4 +1,4 @@
-from feth.common.indexes import MAP_TEXT_INDEXES
+from feth.common.indexes import MAP_TEXT_INDEXES, DLC_MAP_INDEXES
 from feth.binary.compression.base import (
     AbstractCompressionModel,
     AbstractCompressionType,
@@ -30,7 +30,7 @@ class MapModel(AbstractCompressionModel):
 
 class MapType(AbstractCompressionType):
     def __init__(self) -> None:
-        self.indexes = MAP_TEXT_INDEXES
+        self.indexes = [*MAP_TEXT_INDEXES, *DLC_MAP_INDEXES]
 
     def unpack(self, reader: BinaryReader) -> MapModel:
         file = MapModel()

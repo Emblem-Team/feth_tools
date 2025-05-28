@@ -1,4 +1,4 @@
-from feth.common.indexes import MSGDATA_TEXT_INDEXES
+from feth.common.indexes import MSGDATA_TEXT_INDEXES, DLC_MSGDATA_INDEXES
 from feth.utils.enums import LanguageEnum
 from feth.utils.common import actived_flags_count
 from feth.binary.compression.base import (
@@ -57,7 +57,7 @@ class MsgdataModel(AbstractCompressionModel):
 
 class MsgdataType(AbstractCompressionType):
     def __init__(self) -> None:
-        self.indexes = MSGDATA_TEXT_INDEXES
+        self.indexes = [*MSGDATA_TEXT_INDEXES, *DLC_MSGDATA_INDEXES]
 
     def unpack(self, reader: BinaryReader) -> MsgdataModel:
         file = MsgdataModel()

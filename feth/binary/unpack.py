@@ -34,8 +34,8 @@ def unpack_binary() -> None:
                 compressed_size = data0_reader.read_ulong()
                 is_compressed = data0_reader.read_ulong()
 
-                if decompressed_size == 0 and compressed_size == 0:
-                    continue
+                # if decompressed_size == 0 and compressed_size == 0:
+                #     continue
 
                 if is_compressed:
                     binary_gz_path = get_entry_binary_gz_path(index)
