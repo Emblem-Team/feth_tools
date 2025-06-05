@@ -52,11 +52,11 @@ Then run
 python -m feth init
 ```
 
-This will create the `bundle.csv` file, which contains the game's text.
+This will create the `bundle.csv` and `dlc.csv` files, which contains the game's text.
 
 **The `file_index`, `file_type` and `source_language` fields are for internal use—do not edit them.**
 
-After editing the `bundle.csv` file, run the command
+After editing the `bundle.csv` or `dlc.csv` files, run the command
 
 ```
 python -m feth build
