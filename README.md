@@ -1,6 +1,6 @@
-## Fire Emblem: Three Houses - Translating tools
+# Fire Emblem: Three Houses - Translating tools
 
-### Features
+## Features
 
 - Unpacking all binary files from DATA0/1.bin file
 - Updating these files from patch(1-4) files
@@ -13,13 +13,13 @@
 - Unpacking game tutorials (graphic)
 - Creating emu/nx version packages and creating zip bundles
 
-### Requirements
+## Requirements
 
 - Python 3.12
 - [DATA0.bin / DATA1.bin](https://github.com/bqio/feth-extractor)
 - [Latest patches](https://github.com/bqio/feth-extractor)
 
-### Usage
+## Usage
 
 Create and activate environment.
 
@@ -58,7 +58,7 @@ This will create the `bundle.csv` and `dlc.csv` files, which contains the game's
 
 After editing the `bundle.csv` or `dlc.csv` files, run the command
 
-```
+```bash
 python -m feth build
 ```
 
