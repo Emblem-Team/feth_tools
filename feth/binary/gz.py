@@ -82,6 +82,8 @@ def decompress_gz(input_file: Path, output_file: Path) -> None:
 
 def compress_gz(input_file: Path, output_file: Path) -> None:
     print("[Compress gz]:", input_file, "->", output_file)
+    input_file = Path(input_file)
+    output_file = Path(output_file)
     with BinaryReader(input_file) as reader:
         with BinaryWriter(output_file) as writer:
             file = GZFile()
