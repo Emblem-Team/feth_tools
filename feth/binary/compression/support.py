@@ -59,13 +59,22 @@ class SupportType(AbstractCompressionType):
 
     def pack(self, model: SupportModel, writer: BinaryWriter) -> None:
         writer.write_ulong(model.unk)
-        writer.write_uint(20)
-        writer.write_uint((len(model.text) + 1) * 4)  # zero offset
+        writer.write_uint(32)
+        writer.write_uint(0)  # zero offset
         writer.write_uint(len(model.text))
+
+        writer.align(16)
 
         pointers: list[int] = self.calculate_pointers(model.text)
         for pointer in pointers:
             writer.write_uint(pointer)
+        
+        writer.align(16)
+
+        temp = writer.tell()
+        writer.seek(0xC)
+        writer.write_uint(temp - 32)
+        writer.seek(temp)
 
         for i in range(len(model.text)):
             writer.write_utf8_nt_string(model.text[i])

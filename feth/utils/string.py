@@ -8,6 +8,7 @@ def escape_str(string: str) -> str:
 
 
 def scape_str(string: str) -> str:
+    string = "\n".join(string.splitlines())
     for pair in ESC_PAIR:
         string = string.replace(pair[1], pair[0])
     return string
