@@ -2,8 +2,8 @@
 name = "feth"
 version = "1.0.0"
 description = "Инструменты для перевода Fire Emblem: Three Houses"
-authors = [{ name = "bqio", email = "dmitry.muikhaltsov98@gmail.com" }]
-requires-python = ">=3.10"
+authors = [{ name = "emblem_team", email = "emblem.team@mail.ru" }]
+requires-python = ">=3.12"
 dependencies = [
     "click",
     "colorama",

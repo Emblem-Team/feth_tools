@@ -18,6 +18,7 @@
 - Python 3.12
 - [DATA0.bin / DATA1.bin](https://github.com/bqio/feth-extractor)
 - [Latest patches](https://github.com/bqio/feth-extractor)
+- [Install uv](https://github.com/astral-sh/uv?tab=readme-ov-file#installation)
 
 ## Usage
 
