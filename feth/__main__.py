@@ -203,10 +203,9 @@ def cli_build(ctx: click.Context):
     end_time = perf_counter()
     print(f"{Fore.CYAN}Build is done. Time: {end_time - start_time}{Style.RESET_ALL}")
 
+def main():
+    cli()
+
 
 if __name__ == "__main__":
-    print(
-        f"{Fore.YELLOW}=== Fire Emblem: Three Houses - Translating tools ==={Style.RESET_ALL}"
-    )
-    print(f"{Fore.YELLOW}=== by bqio ==={Style.RESET_ALL}")
-    cli()
+    main()

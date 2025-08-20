@@ -28,10 +28,10 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-Install dependencies.
+Install tools.
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 ```
 
 Create .env file
@@ -49,21 +49,21 @@ Fill in the `.env` file by specifying the paths to your folders.
 Then run
 
 ```bash
-python -m feth init
+feth ini
 ```
 
-This will create the `bundle.csv` and `dlc.csv` files, which contains the game's text.
+This will create the `bundle.csv` and `dlc.csv` files in `data/csv` folder, which contains the game's text.
 
 **The `file_index`, `file_type` and `source_language` fields are for internal use—do not edit them.**
 
 After editing the `bundle.csv` or `dlc.csv` files, run the command
 
 ```bash
-python -m feth build
+feth build
 ```
 
 To view all available commands, run:
 
 ```bash
-python -m feth
+feth --help
 ```
