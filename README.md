@@ -49,7 +49,7 @@ Fill in the `.env` file by specifying the paths to your folders.
 Then run
 
 ```bash
-feth ini
+feth init
 ```
 
 This will create the `bundle.csv` and `dlc.csv` files in `data/csv` folder, which contains the game's text.
