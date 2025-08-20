@@ -24,14 +24,14 @@
 Create and activate environment.
 
 ```bash
-python -m venv .venv
+uv venv .venv
 source .venv/bin/activate
 ```
 
 Install tools.
 
 ```bash
-pip install -e .
+uv pip install -e .
 ```
 
 Create .env file

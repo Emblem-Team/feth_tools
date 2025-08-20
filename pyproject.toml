@@ -1,0 +1,16 @@
+[project]
+name = "feth"
+version = "1.0.0"
+description = "Инструменты для перевода Fire Emblem: Three Houses"
+authors = [{ name = "bqio", email = "dmitry.muikhaltsov98@gmail.com" }]
+requires-python = ">=3.10"
+dependencies = [
+    "click",
+    "colorama",
+    "iostuff_tools",
+    "jsonpickle",
+    "python-dotenv"
+]
+
+[project.scripts]
+feth = "feth.__main__:main"
