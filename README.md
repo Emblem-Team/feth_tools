@@ -22,6 +22,13 @@
 
 ## Usage
 
+Clone and open repo.
+
+```bash
+git clone https://github.com/Emblem-Team/feth_tools.git
+cd feth_tools
+```
+
 Create and activate environment.
 
 ```bash
