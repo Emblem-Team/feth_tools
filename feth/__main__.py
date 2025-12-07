@@ -203,6 +203,13 @@ def cli_build(ctx: click.Context):
     end_time = perf_counter()
     print(f"{Fore.CYAN}Build is done. Time: {end_time - start_time}{Style.RESET_ALL}")
 
+@cli.command("package")
+@click.argument("version")
+@click.pass_context
+def cli_build_and_package(ctx: click.Context, version: str):
+    ctx.invoke(cli_build)
+    ctx.invoke(cli_make_arch, version=version)
+
 def main():
     cli()
 
