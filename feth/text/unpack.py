@@ -8,6 +8,7 @@ from feth.binary.compression.support import SupportType
 from feth.binary.compression.map import MapType
 from feth.binary.compression.msgdata import MsgdataType
 from feth.binary.compression.subtitle import SubtitleType
+from feth.binary.compression.credit import CreditType
 
 from iostuff.readers.binary import BinaryReader
 from iostuff.writers.json import JsonWriter
@@ -45,6 +46,7 @@ def unpack_text() -> None:
     unpack_support_text()
     unpack_map_text()
     unpack_subtitle_text()
+    unpack_credits()
 
 
 def unpack_support_text() -> None:
@@ -61,3 +63,6 @@ def unpack_msgdata_text() -> None:
 
 def unpack_subtitle_text() -> None:
     unpack_type(SubtitleType())
+
+def unpack_credits() -> None:
+    unpack_type(CreditType())
