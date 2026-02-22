@@ -5,8 +5,7 @@ from feth.utils.path import (
     NX_README_PATH,
     EMU_README_PATH,
     ATMO_PATH,
-    LAYRED_FS_PATH,
-    DATA_PATH,
+    LAYERED_FS_PATH,
 )
 
 import shutil
@@ -30,8 +29,7 @@ EMU_README = [
     "Игра переведена на 100%. DLC в процессе перевода",
 ]
 
-
-def make_nx_arch(version: str):
+def make_distr(version: str):
     emu_mod_path = EMU_PATH / "FE3H_Russian_Translation_{}".format(version)
     if PACKAGE_PATH.exists():
         shutil.rmtree(PACKAGE_PATH)
@@ -48,9 +46,11 @@ def make_nx_arch(version: str):
     NX_README_PATH.write_text("\n\n".join(NX_README))
     EMU_README_PATH.write_text("\n\n".join(EMU_README))
 
-    shutil.copytree(LAYRED_FS_PATH, emu_mod_path / "romfs")
-    shutil.copytree(LAYRED_FS_PATH, ATMO_PATH / "romfs")
+    shutil.copytree(LAYERED_FS_PATH, emu_mod_path / "romfs")
+    shutil.copytree(LAYERED_FS_PATH, ATMO_PATH / "romfs")
 
+
+def make_nx_arch(version: str):
     emu_arch_path = PACKAGE_PATH / "FE3H_Russian_Translation_{}_emu.zip".format(version)
     nx_arch_path = PACKAGE_PATH / "FE3H_Russian_Translation_{}_nx.zip".format(version)
 

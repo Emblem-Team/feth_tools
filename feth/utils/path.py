@@ -6,8 +6,8 @@ from typing import Generator
 load_dotenv()
 
 try:
-    DATA_PATH = Path(getenv("DATA"))
-    PATCHES_PATH = Path(getenv("PATCHES"))
+    DATA_PATH = Path(getenv("DATA", ""))
+    PATCHES_PATH = Path(getenv("PATCHES", ""))
     PACKAGE_PATH = DATA_PATH / "package"
     NX_PATH = PACKAGE_PATH / "nx"
     EMU_PATH = PACKAGE_PATH / "emu"
@@ -15,8 +15,8 @@ try:
     EMU_README_PATH = EMU_PATH / "README.txt"
     ATMO_PATH = NX_PATH / "atmosphere" / "contents" / "010055d009f78000"
 
-    DATA0_PATH = Path(getenv("DATA0"))
-    DATA1_PATH = Path(getenv("DATA1"))
+    DATA0_PATH = Path(getenv("DATA0", ""))
+    DATA1_PATH = Path(getenv("DATA1", ""))
 except TypeError:
     raise EnvironmentError("Environment variables DATA, PATCHES, DATA0, or DATA1 are not set.")
 
@@ -24,8 +24,8 @@ BIN_PATH = DATA_PATH / "bin"
 JSON_PATH = DATA_PATH / "json"
 CSV_PATH = DATA_PATH / "csv"
 GRAPHIC_PATH = DATA_PATH / "graphic"
-LAYRED_FS_PATH = DATA_PATH / "romfs"
-MODS_PATH = LAYRED_FS_PATH / "mods"
+LAYERED_FS_PATH = DATA_PATH / "romfs"
+MODS_PATH = LAYERED_FS_PATH / "mods"
 ATTACH_PATH = DATA_PATH / "attach"
 
 TUTORIALS_BIN_PATH = BIN_PATH / "6131"

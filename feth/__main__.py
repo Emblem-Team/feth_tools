@@ -7,7 +7,7 @@ from feth.csv.bundle import make_bundle, patch_bundle, make_dlc_bundle
 from feth.utils.clear import clear_all, clear_bin, clear_json, clear_mods
 from feth.utils.merge import merge_bundles
 from feth.build.pack_info import build_distrib
-from feth.build.arch import make_nx_arch
+from feth.build.arch import make_nx_arch, make_distr
 from feth.graphic.tutorial import unpack_tutorials, decompress_tutorials
 from feth.graphic.ba import unpack_binary_archive
 from feth.parser.support import parse_support_files
@@ -59,6 +59,7 @@ def cli_pack_text():
 @click.argument("version")
 def cli_make_arch(version: str):
     print(f"{Fore.YELLOW}Making archives...{Style.RESET_ALL}")
+    make_distr(version)
     make_nx_arch(version)
 
 
@@ -173,6 +174,14 @@ def cli_parse_msgdata(dirs_path: Path):
 @click.argument("dirs-path")
 def cli_parse_subtitle(dirs_path: Path):
     parse_subtitle_files(dirs_path)
+
+@cli.command("distr")
+@click.argument("version")
+@click.pass_context
+def cli_build_and_distr(ctx: click.Context, version: str):
+    print(f"{Fore.YELLOW}Making distr...{Style.RESET_ALL}")
+    ctx.invoke(cli_build)
+    make_distr(version)
 
 
 @cli.command("init")
