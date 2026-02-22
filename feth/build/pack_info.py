@@ -4,10 +4,10 @@ import re
 import struct
 import shutil
 
-from feth.utils.path import MODS_PATH, LAYRED_FS_PATH, PATCHES_PATH, ATTACH_PATH
+from feth.utils.path import MODS_PATH, LAYERED_FS_PATH, PATCHES_PATH, ATTACH_PATH
 
 BACKUP_DIR = str(PATCHES_PATH)
-LAYERED_FS_DIR = str(LAYRED_FS_PATH)
+LAYERED_FS_DIR = str(LAYERED_FS_PATH)
 MOD_DIR = str(MODS_PATH)
 
 INFO_ENTRY_STRUCT = struct.Struct("<QQQQ256s")
