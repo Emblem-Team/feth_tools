@@ -58,8 +58,8 @@ def cli_pack_text():
 
 @cli.command("make-arch")
 def cli_make_arch():
-    print(f"{Fore.YELLOW}Making archives...{Style.RESET_ALL}")
     manifest = parse_manifest()
+    print(f"{Fore.YELLOW}Making {manifest.version} archives...{Style.RESET_ALL}")
     make_distr(manifest)
     make_nx_arch(manifest)
 
@@ -216,11 +216,10 @@ def cli_build(ctx: click.Context):
 
 
 @cli.command("package")
-@click.argument("version")
 @click.pass_context
-def cli_build_and_package(ctx: click.Context, version: str):
+def cli_build_and_package(ctx: click.Context):
     ctx.invoke(cli_build)
-    ctx.invoke(cli_make_arch, version=version)
+    ctx.invoke(cli_make_arch)
 
 
 def main():
