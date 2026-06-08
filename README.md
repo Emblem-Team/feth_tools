@@ -12,6 +12,7 @@
 - Decompressing/compressing koei gz
 - Unpacking game tutorials (graphic)
 - Creating emu/nx version packages and creating zip bundles
+- **Manifest-driven readme generation** – `manifest.json` (specified in [MANIFEST.md](MANIFEST.md)) provides version and platform‑specific text arrays (`nx` / `emu`) that are automatically assembled into `README.txt` files in the final archives.
 
 ## Requirements
 
