@@ -8,29 +8,16 @@ from feth.utils.path import (
     LAYERED_FS_PATH,
 )
 
+from .manifest import parse_manifest, Manifest
+
 import shutil
 import zipfile
 import os
 
-NX_README = [
-    "Русификатор для игры Fire Emblem: Three Houses",
-    "Версия: {}",
-    "Авторы: https://vk.com/emblem_team",
-    "Установка: Удалить предыдущую версию русификатора и скопировать папку atmosphere на SD карту вашей консоли",
-    "!! Внимание !! У вас должно быть установлено обновление 1.2.0",
-    "Игра переведена на 100%. DLC в процессе перевода",
-]
-EMU_README = [
-    "Русификатор для игры Fire Emblem: Three Houses",
-    "Версия: {}",
-    "Авторы: https://vk.com/emblem_team",
-    "Установка: Скопировать папку FE3H_Russian_Translation_{} в папку модов на эмуляторе и удалить (или выключить) предыдущую версию русификатора",
-    "!! Внимание !! У вас должно быть установлено обновление 1.2.0",
-    "Игра переведена на 100%. DLC в процессе перевода",
-]
 
-def make_distr(version: str):
-    emu_mod_path = EMU_PATH / "FE3H_Russian_Translation_{}".format(version)
+def make_distr(manifest: Manifest):
+    manifest = parse_manifest()
+    emu_mod_path = EMU_PATH / "FE3H_Russian_Translation_{}".format(manifest.version)
     if PACKAGE_PATH.exists():
         shutil.rmtree(PACKAGE_PATH)
 
@@ -39,20 +26,26 @@ def make_distr(version: str):
     ATMO_PATH.mkdir(parents=True)
     emu_mod_path.mkdir(parents=True)
 
-    NX_README[1] = NX_README[1].format(version)
-    EMU_README[1] = EMU_README[1].format(version)
-    EMU_README[3] = EMU_README[3].format(version)
+    for idx, _ in enumerate(manifest.nx_readme):
+        manifest.nx_readme[idx] = manifest.nx_readme[idx].format(manifest.version)
 
-    NX_README_PATH.write_text("\n\n".join(NX_README))
-    EMU_README_PATH.write_text("\n\n".join(EMU_README))
+    for idx, _ in enumerate(manifest.emu_readme):
+        manifest.emu_readme[idx] = manifest.emu_readme[idx].format(manifest.version)
+
+    NX_README_PATH.write_text("\n\n".join(manifest.nx_readme))
+    EMU_README_PATH.write_text("\n\n".join(manifest.emu_readme))
 
     shutil.copytree(LAYERED_FS_PATH, emu_mod_path / "romfs")
     shutil.copytree(LAYERED_FS_PATH, ATMO_PATH / "romfs")
 
 
-def make_nx_arch(version: str):
-    emu_arch_path = PACKAGE_PATH / "FE3H_Russian_Translation_{}_emu.zip".format(version)
-    nx_arch_path = PACKAGE_PATH / "FE3H_Russian_Translation_{}_nx.zip".format(version)
+def make_nx_arch(manifest: Manifest):
+    emu_arch_path = PACKAGE_PATH / "FE3H_Russian_Translation_{}_emu.zip".format(
+        manifest.version
+    )
+    nx_arch_path = PACKAGE_PATH / "FE3H_Russian_Translation_{}_nx.zip".format(
+        manifest.version
+    )
 
     with zipfile.ZipFile(emu_arch_path, "w", zipfile.ZIP_DEFLATED) as fd:
         for root, dirs, files in os.walk(EMU_PATH):

@@ -14,6 +14,7 @@ from feth.parser.support import parse_support_files
 from feth.parser.map import parse_map_files
 from feth.parser.msgdata import parse_msgdata_files
 from feth.parser.subtitle import parse_subtitle_files
+from feth.build.manifest import parse_manifest
 
 from time import perf_counter
 from colorama import init as colorama_init, Fore, Style
@@ -56,11 +57,11 @@ def cli_pack_text():
 
 
 @cli.command("make-arch")
-@click.argument("version")
-def cli_make_arch(version: str):
+def cli_make_arch():
     print(f"{Fore.YELLOW}Making archives...{Style.RESET_ALL}")
-    make_distr(version)
-    make_nx_arch(version)
+    manifest = parse_manifest()
+    make_distr(manifest)
+    make_nx_arch(manifest)
 
 
 @cli.command("make-bundle")
@@ -175,6 +176,7 @@ def cli_parse_msgdata(dirs_path: Path):
 def cli_parse_subtitle(dirs_path: Path):
     parse_subtitle_files(dirs_path)
 
+
 @cli.command("distr")
 @click.argument("version")
 @click.pass_context
@@ -212,12 +214,14 @@ def cli_build(ctx: click.Context):
     end_time = perf_counter()
     print(f"{Fore.CYAN}Build is done. Time: {end_time - start_time}{Style.RESET_ALL}")
 
+
 @cli.command("package")
 @click.argument("version")
 @click.pass_context
 def cli_build_and_package(ctx: click.Context, version: str):
     ctx.invoke(cli_build)
     ctx.invoke(cli_make_arch, version=version)
+
 
 def main():
     cli()

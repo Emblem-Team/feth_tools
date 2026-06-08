@@ -8,6 +8,7 @@ load_dotenv()
 try:
     DATA_PATH = Path(getenv("DATA", ""))
     PATCHES_PATH = Path(getenv("PATCHES", ""))
+    MANIFEST_PATH = Path(getenv("MANIFEST", ""))
     PACKAGE_PATH = DATA_PATH / "package"
     NX_PATH = PACKAGE_PATH / "nx"
     EMU_PATH = PACKAGE_PATH / "emu"
