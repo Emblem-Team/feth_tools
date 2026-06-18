@@ -7,6 +7,7 @@ import json
 @dataclass
 class Manifest:
     version: str
+    prefix: str
     nx_readme: list[str]
     emu_readme: list[str]
 
@@ -16,6 +17,7 @@ def parse_manifest() -> Manifest:
     manifest_json = json.loads(manifest_contents)
     manifest = Manifest(
         version=manifest_json["version"],
+        prefix=manifest_json["prefix"],
         nx_readme=manifest_json["readme"]["nx"],
         emu_readme=manifest_json["readme"]["emu"],
     )

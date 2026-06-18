@@ -6,6 +6,7 @@ from typing import Generator
 load_dotenv()
 
 try:
+    WORKDIR_PATH = Path(getenv("WORKDIR", ""))
     DATA_PATH = Path(getenv("DATA", ""))
     PATCHES_PATH = Path(getenv("PATCHES", ""))
     MANIFEST_PATH = Path(getenv("MANIFEST", ""))
@@ -19,7 +20,9 @@ try:
     DATA0_PATH = Path(getenv("DATA0", ""))
     DATA1_PATH = Path(getenv("DATA1", ""))
 except TypeError:
-    raise EnvironmentError("Environment variables DATA, PATCHES, DATA0, or DATA1 are not set.")
+    raise EnvironmentError(
+        "Environment variables DATA, PATCHES, DATA0, or DATA1 are not set."
+    )
 
 BIN_PATH = DATA_PATH / "bin"
 JSON_PATH = DATA_PATH / "json"

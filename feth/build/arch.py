@@ -1,4 +1,5 @@
 from feth.utils.path import (
+    WORKDIR_PATH,
     PACKAGE_PATH,
     NX_PATH,
     EMU_PATH,
@@ -17,7 +18,7 @@ import os
 
 def make_distr(manifest: Manifest):
     manifest = parse_manifest()
-    emu_mod_path = EMU_PATH / "FE3H_Russian_Translation_{}".format(manifest.version)
+    emu_mod_path = EMU_PATH / "{}_{}".format(manifest.prefix, manifest.version)
     if PACKAGE_PATH.exists():
         shutil.rmtree(PACKAGE_PATH)
 
@@ -40,11 +41,11 @@ def make_distr(manifest: Manifest):
 
 
 def make_nx_arch(manifest: Manifest):
-    emu_arch_path = PACKAGE_PATH / "FE3H_Russian_Translation_{}_emu.zip".format(
-        manifest.version
+    emu_arch_path = WORKDIR_PATH / "{}_{}_emu.zip".format(
+        manifest.prefix, manifest.version
     )
-    nx_arch_path = PACKAGE_PATH / "FE3H_Russian_Translation_{}_nx.zip".format(
-        manifest.version
+    nx_arch_path = WORKDIR_PATH / "{}_{}_nx.zip".format(
+        manifest.prefix, manifest.version
     )
 
     with zipfile.ZipFile(emu_arch_path, "w", zipfile.ZIP_DEFLATED) as fd:

@@ -16,6 +16,7 @@ The root object has **two required fields**:
 ```json
 {
   "version": "string",
+  "prefix": "string",
   "readme": {
     "nx": ["string", ...],
     "emu": ["string", ...]
@@ -28,6 +29,7 @@ The root object has **two required fields**:
 ```json
 {
   "version": "1.0.2",
+  "prefix": "FE3H_Russian_Translation",
   "readme": {
     "nx": [
       "Русификатор для игры Fire Emblem: Three Houses",
